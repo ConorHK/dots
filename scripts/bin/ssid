@@ -1,3 +1,8 @@
 #!/bin/sh
 
-iw dev wlp58s0 info | grep ssid | sed 's/\sssid //g'
+hostname=$(hostname)
+if [ "$hostname" = "laptop" ]; then
+  iw dev wlp58s0 info | grep ssid | sed 's/\sssid //g'
+else
+  echo "Ethernet"
+fi

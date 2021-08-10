@@ -1,9 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
-battery=$(batt)
+hostname=$(hostname)
 network_status=$(check-network)
 network=$(ssid)
 date=$(date)
+
+info_universal="$date|$network_status $network" 
+if [ "$hostname" = "laptop" ]; then
+  battery=$(batt)
+  info_laptop="$(info_universal)| $battery"
+  info="$(info_universal)| $battery"
+else
+  info="$info_universal"
+fi
+
 # Launch Rofi
 rofi -no-lazy-grab -sep "|" -dmenu  \
 -hide-scrollbar true \
@@ -14,4 +24,4 @@ rofi -no-lazy-grab -sep "|" -dmenu  \
 -width 15 \
 -columns 1 \
 -color-enabled true \
-<<<" $battery |$network_status $network |$date"
+<<<"$info"
