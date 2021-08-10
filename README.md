@@ -12,4 +12,4 @@ stow nvim
 ```
 
 ## Image:
-![Example of dotfiles](https://raw.githubusercontent.com/ConorHK/dots/master/images/screencap.png)
+![Example of dotfiles](https://raw.githubusercontent.com/ConorHK/dots/master/.images/alduin.png)
