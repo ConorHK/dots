@@ -27,8 +27,8 @@ function set_hdmi() {
 
 case "$1" in
   toggle ) pactl set-sink-mute $active_sink toggle ;;
-  volume-up ) pactl set-sink-volume $active_sink +5% && status;;
-  volume-down ) pactl set-sink-volume $active_sink -5% && status;;
+  volume-up ) pactl set-sink-volume $active_sink +5% && volume;;
+  volume-down ) pactl set-sink-volume $active_sink -5% && volume;;
   swap-output ) pactl list sink-inputs | grep "Sink Input" | sed 's/[^0-9]//g' | while read input; do [[ $active_sink -eq $SPEAKERS ]] && pactl move-sink-input $input $HEADPHONES || pactl move-sink-input $input $SPEAKERS; done ;;
   status ) status ;;
   volume ) volume ;;
