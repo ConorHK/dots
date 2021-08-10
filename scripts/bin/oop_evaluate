@@ -1,0 +1,75 @@
+#!/bin/sh
+
+RED="[91m"
+GREEN="[92m"
+RED_BOLD="[1;91m"
+GREEN_BOLD="[1;92m"
+DEFAULT="[0m"
+
+failed=false
+
+indent() { sed 's/^/ > /'; }
+
+is_test_directory=$(pwd | grep tests)
+if [ -z "$is_test_directory" ]; then
+  prefix="."
+else
+  prefix=".."
+fi
+
+if [ ! -f $prefix/expected_output.txt ]; then
+  echo
+  echo "expected_output.txt missing: maybe rename one of the following?"
+  find $prefix/ -name "*.txt" | indent
+  exit 1
+fi
+
+echo "Evaluating unit tests, if present..."
+if [ -f "$prefix/tests/all_tests.rb" ]; then
+  echo "all_tests.rb found!" | indent
+  echo
+  test_output=$(ruby $prefix/tests/all_tests.rb | tee /dev/tty)
+  test_output=$(echo "$test_output" | grep "passed" | sed 's/%.*//')
+  echo
+  if [ "$test_output" != '100' ]; then
+    echo "${RED}================================"
+    echo "${RED}One or more tests failed"
+    echo "${RED}================================"
+    failed=true
+  else
+    echo "${GREEN}====================="
+    echo "${GREEN}Success: Tests passed"
+    echo "${GREEN}====================="
+  fi
+else
+  echo "${DEFAULT}all_tests.rb not found, moving on" | indent
+fi
+
+echo
+echo "${DEFAULT}Evaluating output difference..."
+if [ -z "$is_test_directory" ]; then
+  diff_outputs=$(ruby ./main.rb | (diff "$prefix/expected_output.txt" /dev/fd/4 ) 4<&0 )
+else
+  diff_outputs=$(cd ../ && ruby ./main.rb | (diff "./expected_output.txt" /dev/fd/4 ) 4<&0 )
+fi
+if [ -n "$diff_outputs" ]; then
+  echo "${RED}======================"
+  echo "${RED}Failed: invalid output"
+  echo "${RED}$diff_outputs"
+  echo "${RED}======================"
+  failed=true
+else
+  echo "${GREEN}====================="
+  echo "${GREEN}Success: 0 difference"
+  echo "${GREEN}====================="
+fi
+
+if [ "$failed" = true ]; then
+  echo
+  echo "${RED_BOLD}EVALUATION FAIL"
+  exit 1
+else
+  echo
+  echo "${GREEN_BOLD}EVALUATION SUCCESS"
+  exit 0
+fi

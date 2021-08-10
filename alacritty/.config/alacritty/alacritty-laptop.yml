@@ -1,0 +1,52 @@
+window:
+  padding:
+   x: 10
+   y: 5
+
+font:
+  normal:
+    family: GohuGohuFont
+    style:  Regular
+  size: 5.5
+  offset:
+   x: 0
+   y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+
+
+colors:
+  primary:
+    background: '#1c1c1c'
+    foreground: '#dfdfaf'
+
+  cursor:
+    text:   '#191919'
+    cursor: '#bbbbbb'
+
+  normal:
+    black:   '#131313'
+    red:     '#883c43'
+    green:   '#889e3b'
+    yellow:  '#deb14f'
+    blue:    '#6e6461'
+    magenta: '#753747'
+    cyan:    '#55776e'
+    white:   '#bbbbbb'
+  bright:
+    black:   '#3d3a3b'
+    red:     '#bb6767'
+    green:   '#d2d074'
+    yellow:  '#807b64'
+    blue:    '#989798'
+    magenta: '#956c74'
+    cyan:    '#71bb94'
+    white:   '#baba9e'
+
+cursor:
+  style: Block
+
+  unfocused_hollow: true
+
+live_config_reload: true
