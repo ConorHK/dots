@@ -1,0 +1,18 @@
+include /usr/share/doc/newsboat/contrib/colorschemes/inkpot
+
+auto-reload yes
+max-items 50
+
+browser "/usr/bin/xdg-open %u"
+macro y set browser "mpv %u" ; open-in-browser ; set browser "elinks %u"
+
+# vim
+unbind-key ENTER
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
