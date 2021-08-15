@@ -31,3 +31,10 @@ export ZDOTDIR="$HOME/.config/zsh"
 export _Z_DATA="$XDG_DATA_HOME/z"
 
 export SESSIONS="$XDG_CACHE_HOME/nvim/sessions"
+
+if [ "$hostname" = "pc" ]; then
+  export HEADPHONES="alsa_output.usb-Plantronics_Plantronics_HD1-00.analog-stereo"
+  export SPEAKERS="alsa_output.pci-0000_01_00.1.hdmi-stereo"
+else
+  export SPEAKERS="TODO"
+fi

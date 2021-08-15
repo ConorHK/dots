@@ -1,39 +1,166 @@
-#!/bin/sh
+#!/usr/bin/env python3
+"""
+Audio wrapper script for PulseAudio
+"""
 
-active_sink=$(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
+import argparse
+import logging
+import os
+import sys
+from statistics import mode
+from typing import List
 
-HEADPHONES=$(pactl list short | grep "alsa_output.usb-Plantronics" | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
-SPEAKERS=$(pactl list short | grep alsa_output.pci-0000_01_00.1.hdmi-stereo | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
-MUTED=$(pactl list sinks | grep -A 10 "Sink #$active_sink$" | grep "Mute: yes" | wc -w)
+from pulsectl import Pulse
+from pulsectl.pulsectl import PulseOperationFailed, PulseSinkInfo, PulseSinkInputInfo
 
-function volume() {
-  volume=$([ "$MUTED" -ne 0 ] && echo MUTED || echo "$(pactl list sinks | grep -A 10 "Sink #$active_sink$" | grep "Volume" | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')%")
-  echo "$volume"
-}
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
-function status() {
-  [ $active_sink -eq $SPEAKERS ] && echo "Speakers" || echo "Headphones"
-}
 
-function usage() {
-  printf "Options:\n> toggle\n> volume-up\n> volume-down\n> swap-output \n> status\n> volume\n> set-hdmi\n> help\n"
-}
+MAX_AUDIO_LEVEL = 153
+sinks = {"headphones": os.environ.get("HEADPHONES"), "speakers": os.environ.get("SPEAKERS")}
 
-function set_hdmi() {
-  pactl set-card-profile 0 output:hdmi-stereo-extra2 # Enable correct HDMI config bc pulseaudio config seems to do nothing
-  status
 
-}
+def _get_sink_index(target_sink: str, connected_sinks: List[PulseSinkInfo]) -> List[int]:
+    """
+    Gets sink index for the given sinks
+    :param target_sink: Target sink
+    :param connected_sinks: Present sinks in pulseaudio
+    :returns: List of sink indexes
+    """
+    sink_indexes = []
+    connected_sinks = {sink.name: sink for sink in connected_sinks}
+    if target_sink in connected_sinks:
+        sink_indexes.append(connected_sinks[target_sink].index)
+    else:
+        logger.warning("Sink %s does not exist", target_sink)
+    return sink_indexes
 
-case "$1" in
-  toggle ) pactl set-sink-mute $active_sink toggle ;;
-  volume-up ) pactl set-sink-volume $active_sink +5% && volume;;
-  volume-down ) pactl set-sink-volume $active_sink -5% && volume;;
-  swap-output ) pactl list sink-inputs | grep "Sink Input" | sed 's/[^0-9]//g' | while read input; do [[ $active_sink -eq $SPEAKERS ]] && pactl move-sink-input $input $HEADPHONES || pactl move-sink-input $input $SPEAKERS; done ;;
-  status ) status ;;
-  volume ) volume ;;
-  set-hdmi) set_hdmi ;; 
-  help ) usage ;;
-  * ) usage ;;
-esac
 
+def _get_active_sink(
+    input_list: List[PulseSinkInputInfo], sink_list: List[PulseSinkInfo]
+) -> PulseSinkInfo:
+    """
+    Gets active sink index
+    :param input_list: List of sink input objects
+    :param sink_list: List of sink objects
+    :returns: Active sink
+    """
+    sink_inputs = [input.sink for input in input_list]
+    active_sink = next((sink for sink in sink_list if sink.index == mode(sink_inputs)), None)
+    if active_sink:
+        return active_sink
+    logger.critical("Active sink %d not found", mode(sink_inputs))
+    sys.exit()
+
+
+def swap_sinks(sink_name: str):
+    """
+    Swap audio outputs
+    :param sink_name: Name of sink to swap to
+    """
+    with Pulse("sink_switcher") as pulse:
+        target_sink = _get_sink_index(target_sink=sink_name, connected_sinks=pulse.sink_list())
+        for input_object in pulse.sink_input_list():
+            try:
+                logger.info("Moving input %d to sink %d", input_object.index, target_sink)
+                pulse.sink_input_move(input_object.index, target_sink)
+            except PulseOperationFailed:
+                logger.warning(
+                    "unable to move input %d to sink %d", input_object.index, target_sink
+                )
+
+
+def change_volume(step: int):
+    """
+    Changes volume of active sink
+    :param step: increment/decrement
+    """
+    step_normalized = step * MAX_AUDIO_LEVEL / 100 / 100
+    with Pulse("volume-increaser") as pulse:
+        active_sink = _get_active_sink(
+            input_list=pulse.sink_input_list(), sink_list=pulse.sink_list()
+        )
+        pulse.volume_change_all_chans(active_sink, step_normalized)
+
+
+def status():
+    """
+    Returns a string containing active string and volume
+    """
+    with Pulse() as pulse:
+        active_sink = _get_active_sink(
+            input_list=pulse.sink_input_list(), sink_list=pulse.sink_list()
+        )
+        volume = int(round((active_sink.volume.value_flat / MAX_AUDIO_LEVEL) * 100 * 100))
+        return f"{active_sink.description}: {volume}%"
+
+
+def toggle_mute():
+    """
+    Toggles mute
+    """
+    with Pulse() as pulse:
+        active_sink = _get_active_sink(
+            input_list=pulse.sink_input_list(), sink_list=pulse.sink_list()
+        )
+        if active_sink.mute == 0:
+            pulse.mute(active_sink)
+        else:
+            pulse.mute(active_sink, False)
+
+
+def _make_parser() -> argparse.ArgumentParser:
+    """
+    Creates argument parser
+    :returns: argument parser
+    """
+    parser = argparse.ArgumentParser(
+        "audio",
+        description="PulseAudio wrapper",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--swap_output",
+        "-o",
+        dest="sink_to_swap",
+        type=str,
+        help="Name of target output e.g. 'speakers', 'headphones'",
+    )
+    parser.add_argument(
+        "--change_volume", "-v", dest="change_volume", type=int, help="Amount to change volume by"
+    )
+    parser.add_argument("--status", "-s", dest="status", action="store_true")
+    parser.add_argument("--toggle", "-m", dest="toggle_mute", action="store_true")
+    return parser
+
+
+def main():
+    """
+    Driver function
+    """
+    parser = _make_parser()
+    parsed_args = parser.parse_args()
+
+    if sink_to_swap := parsed_args.sink_to_swap:
+        target_sink = sinks[sink_to_swap]
+        if target_sink:
+            swap_sinks(target_sink)
+        else:
+            logger.warning(
+                "sink %s not found. Make sure to set the corresponding environment variable.",
+                parsed_args.sink_to_swap,
+            )
+
+    if volume_step := parsed_args.change_volume:
+        change_volume(step=volume_step)
+
+    if parsed_args.status:
+        print(status())
+
+    if parsed_args.toggle_mute:
+        toggle_mute()
+
+
+if __name__ == "__main__":
+    main()

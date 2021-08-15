@@ -146,10 +146,10 @@ super + {Left,Down,Up,Right}
 
 #----- Media Keys -----#
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
-  if [[ "$(hostname)" = pc ]]; then audio {volume-up,volume-down}; else pulseaudio-ctl {up,down}; fi
+  if [[ "$(hostname)" = pc ]]; then audio --change_volume {5,-5}; else pulseaudio-ctl {up,down}; fi
 
 XF86AudioMute
-  if [[ "$(hostname)" = pc ]]; then audio toggle; else pulseaudio-ctl mute; fi
+  if [[ "$(hostname)" = pc ]]; then audio --toggle; else pulseaudio-ctl mute; fi
 
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
   brightnessctl s 20%{+,-}
