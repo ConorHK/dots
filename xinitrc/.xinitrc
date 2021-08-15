@@ -10,5 +10,4 @@ xsetroot -cursor_name left_ptr &
 [[ "$hostname" =~ laptop ]] && gebaard -b
 xset m 1/1 3 # mouse speed
 unclutter &
-2bspwm &
 exec bspwm
