@@ -93,7 +93,8 @@ def status():
             input_list=pulse.sink_input_list(), sink_list=pulse.sink_list()
         )
         volume = int(round((active_sink.volume.value_flat / MAX_AUDIO_LEVEL) * 100 * 100))
-        return f"{active_sink.description}: {volume}%"
+        muted = "not muted" if active_sink.mute == 0 else "muted"
+        return f"{active_sink.description}: {volume}%; {muted}"
 
 
 def toggle_mute():
