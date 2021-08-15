@@ -11,9 +11,8 @@ if [ "$hostname" = "laptop" ]; then
   info_laptop="$(info_universal)| $battery"
   info="$(info_universal)| $battery"
 else
-  volume=$(audio volume)
-  active_output=$(audio status)
-  info="$info_universal|$active_output: $volume"
+  audio_status=$(audio --status)
+  info="$info_universal|$audio_status"
 fi
 
 # Launch Rofi
