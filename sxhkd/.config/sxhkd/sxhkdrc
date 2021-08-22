@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	$TERMINAL --config-file $HOME/.config/alacritty/alacritty-$(hostname).yml
+	$TERMINAL --config-file $HOME/.config/alacritty/$(hostname).yml
 
 # program launcher
 super + @space
