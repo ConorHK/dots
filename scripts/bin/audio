@@ -111,6 +111,13 @@ def toggle_mute():
             pulse.mute(active_sink, False)
 
 
+def fix_hdmi_card():
+    """
+    Fixes buggy HDMI config for pulseaudio
+    """
+    return "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2"
+
+
 def _make_parser() -> argparse.ArgumentParser:
     """
     Creates argument parser
@@ -146,7 +153,12 @@ def main():
     if sink_to_swap := parsed_args.sink_to_swap:
         target_sink = sinks[sink_to_swap]
         if target_sink:
-            swap_sinks(target_sink)
+            try:
+                swap_sinks(target_sink)
+            except:
+                fix_hdmi_card()
+                logger.info("Trying alternative HDMI card")
+                swap_sinks(fix_hdmi_card())
         else:
             logger.warning(
                 "sink %s not found. Make sure to set the corresponding environment variable.",
