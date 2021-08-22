@@ -15,8 +15,8 @@ export BROWSER="firefox"
 export READER="zathura"
 
 # Locations
-export ENV_FILE="$(pwd)/.env.zsh"
-export ALIASES="$(pwd)/.aliases.zsh"
+export ENV_FILE="$(pwd)/env.zsh"
+export ALIASES="$(pwd)/aliases.zsh"
 
 # $HOME Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -29,10 +29,15 @@ export GTK2_RC_FILES="$HOME/.config/gtk-2/gtkrc-2.0"
 export WGETRC="$HOME/.config/wget/wgetrc"
 export ZDOTDIR="$HOME/.config/zsh"
 export _Z_DATA="$XDG_DATA_HOME/z"
+export PYLINTHOME="$XDG_CACHE_HOME/pylint"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export GOPATH="${XDG_DATA_HOME}/go"
+export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
+export SSB_HOME="${XDG_DATA_HOME}/zoom" # zoom
 
 export SESSIONS="$XDG_CACHE_HOME/nvim/sessions"
 
-if [ "$hostname" = "pc" ]; then
+if [ "$hostname" = "atlantic" ]; then
   export HEADPHONES="alsa_output.usb-Plantronics_Plantronics_HD1-00.analog-stereo"
   export SPEAKERS="alsa_output.pci-0000_01_00.1.hdmi-stereo"
 else
