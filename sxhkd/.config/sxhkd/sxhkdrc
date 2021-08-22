@@ -50,10 +50,6 @@ super + g
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-# toggle polybar
-super + p
-  if [[ "$(hostname)" = pc ]]; then hideIt.sh --name '^polybar-pc_DP-1$' --toggle; else hideIt.sh --name "^polybar-laptop_eDP-1" --toggle; fi
-
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
@@ -146,10 +142,10 @@ super + {Left,Down,Up,Right}
 
 #----- Media Keys -----#
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
-  if [[ "$(hostname)" = pc ]]; then audio --change_volume {5,-5}; else pulseaudio-ctl {up,down}; fi
+  if [[ "$(hostname)" = atlantic ]]; then audio --change_volume {5,-5}; else pulseaudio-ctl {up,down}; fi
 
 XF86AudioMute
-  if [[ "$(hostname)" = pc ]]; then audio --toggle; else pulseaudio-ctl mute; fi
+  if [[ "$(hostname)" = atlantic ]]; then audio --toggle; else pulseaudio-ctl mute; fi
 
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
   brightnessctl s 20%{+,-}
