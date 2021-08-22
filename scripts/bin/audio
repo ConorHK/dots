@@ -84,16 +84,23 @@ def change_volume(step: int):
         pulse.volume_change_all_chans(active_sink, step_normalized)
 
 
-def status():
+def status(status_type: str):
     """
     Returns a string containing active string and volume
+    :param status_type: Type of info to print status about
     """
     with Pulse() as pulse:
         active_sink = _get_active_sink(
             input_list=pulse.sink_input_list(), sink_list=pulse.sink_list()
         )
         volume = int(round((active_sink.volume.value_flat / MAX_AUDIO_LEVEL) * 100 * 100))
-        muted = "not muted" if active_sink.mute == 0 else "muted"
+        muted = "playing" if active_sink.mute == 0 else "muted"
+        if status_type == "output":
+            return f"{active_sink.description}"
+        if status_type == "volume":
+            return f"{volume}"
+        if status_type == "muted":
+            return f"{muted}"
         return f"{active_sink.description}: {volume}%; {muted}"
 
 
@@ -138,7 +145,15 @@ def _make_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--change_volume", "-v", dest="change_volume", type=int, help="Amount to change volume by"
     )
-    parser.add_argument("--status", "-s", dest="status", action="store_true")
+    parser.add_argument(
+        "--status",
+        "-s",
+        dest="status_type",
+        nargs="?",
+        const="all",
+        type=str,
+        help="output/volume/muted/all",
+    )
     parser.add_argument("--toggle", "-m", dest="toggle_mute", action="store_true")
     return parser
 
@@ -155,7 +170,7 @@ def main():
         if target_sink:
             try:
                 swap_sinks(target_sink)
-            except:
+            except TypeError:
                 fix_hdmi_card()
                 logger.info("Trying alternative HDMI card")
                 swap_sinks(fix_hdmi_card())
@@ -168,8 +183,8 @@ def main():
     if volume_step := parsed_args.change_volume:
         change_volume(step=volume_step)
 
-    if parsed_args.status:
-        print(status())
+    if parsed_args.status_type:
+        print(status(parsed_args.status_type))
 
     if parsed_args.toggle_mute:
         toggle_mute()
