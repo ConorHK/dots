@@ -23,26 +23,26 @@ colors:
 
   cursor:
     text:   '#191919'
-    cursor: '#bbbbbb'
+    cursor: '#dfdfaf'
 
   normal:
-    black:   '#131313'
-    red:     '#883c43'
-    green:   '#889e3b'
-    yellow:  '#deb14f'
-    blue:    '#6e6461'
-    magenta: '#753747'
-    cyan:    '#55776e'
-    white:   '#bbbbbb'
+    black:   '#262626'
+    red:     '#af5f5f'
+    green:   '#87875f'
+    yellow:  '#af875f'
+    blue:    '#878787'
+    magenta: '#af8787'
+    cyan:    '#87afaf'
+    white:   '#dfdfaf'
   bright:
-    black:   '#3d3a3b'
-    red:     '#bb6767'
-    green:   '#d2d074'
-    yellow:  '#807b64'
-    blue:    '#989798'
-    magenta: '#956c74'
-    cyan:    '#71bb94'
-    white:   '#baba9e'
+    black:   '#626262'
+    red:     '#af5f5f'
+    green:   '#87875f'
+    yellow:  '#af875f'
+    blue:    '#878787'
+    magenta: '#af8787'
+    cyan:    '#87afaf'
+    white:   '#dfdfaf'
 
 cursor:
   style: Block
