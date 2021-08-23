@@ -11,8 +11,12 @@ super + @space
 	rofi -show drun
 
 # status
-super + z
-	status
+super + w
+  if [[ "$(hostname)" = "atlantic" ]]; then status --pc; else status --laptop; fi
+super + e
+  status --bspwm
+super + r
+  status --audio
 
 # make sxhkd reload its configuration files:
 super + Escape

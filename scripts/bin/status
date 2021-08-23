@@ -1,28 +1,248 @@
 #!/bin/sh
 
 hostname=$(hostname)
-network_status=$(check-network)
-network=$(ssid)
-date=$(date)
+sep='<span foreground="#878787">⏹</span>'
 
-info_universal="$date|$network_status $network" 
-if [ "$hostname" = "laptop" ]; then
-  battery=$(batt)
-  info_laptop="$(info_universal)| $battery"
-  info="$(info_universal)| $battery"
-else
-  audio_status=$(audio --status)
-  info="$info_universal|$audio_status"
-fi
+bspwm() {
+	case "$1" in
+	-s | --simple)
+    bspc query -D -d focused --names
+    ;;
+	-f | --full)
+    active_desktops=$(bspc query -D -d .occupied --names | tr "\n" " ")
+    echo "Active desktops: $active_desktops"
+		;;
+	esac
+}
 
-# Launch Rofi
-rofi -no-lazy-grab -sep "|" -dmenu  \
--hide-scrollbar true \
--bw 0 \
--lines 4 \
--line-padding 10 \
--padding 20 \
--width 15 \
--columns 1 \
--color-enabled true \
-<<<"$info"
+calendar() {
+	time=$(date +"%R")
+	date=$(date +"%A, %B %d")
+
+	case "$1" in
+	-s | --time)
+		echo "$time"
+		;;
+	-f | --date)
+		env printf "$date"
+		;;
+	esac
+}
+
+greeting() {
+  time=$(date +%H)
+  if [ "$time" -lt 12 ]; then
+    echo morning
+  elif [ "$time" -lt 18 ]; then
+    echo afternoon
+  else
+    echo evening
+  fi
+}
+
+soundinfo() {
+  volume=$(audio -s volume)
+  mute_status=$(audio -s muted)
+  spotify_metadata=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:org.mpris.MediaPlayer2.Player string:Metadata 2> /dev/null)
+  if [ -n "$spotify_metadata" ]; then
+    spotify=true
+    artist=$(echo "$spotify_metadata" | sed -n '/artist/{n;n;p}' | cut -d '"' -f 2)
+    song=$(echo "$spotify_metadata" | sed -n '/title/{n;p}' | cut -d '"' -f 2)
+  fi
+  spotify_status=$([ "$spotify" = "true" ] && echo "$artist - $song" || echo "not playing")
+
+	case "$1" in
+	-s | --simple)
+    [ "$mute_status" = "playing" ] && echo "$volume%%" || echo "$mute_status"
+		;;
+  -p | --spotify)
+    echo "$spotify_status"
+    ;;
+	-f | --full)
+    output=$(audio -s output)
+    printf "%s\n<span foreground='#878787'>-----------------</span>\nVolume: %s%%\nMute status: %s\nSpotify: %s\n" "$output" "$volume" "$mute_status" "$spotify_status"
+		;;
+	esac
+}
+
+brightness() {
+	case "$1" in
+	-s | --simple)
+		#brightness=$(busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight Get "s" "" | awk '{print $3*100}')
+		#brightness=$(echo "($brightness+0.5)/1" | bc)
+		brightness=$(echo "$(xbacklight)/1" | bc)
+		echo "$brightness%%"
+		;;
+	-f | --full)
+		FULL=""  #"•"
+		EMPTY="" #"○"
+		value="${3:-5}"
+		#brightness="$(busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight Get "s" "" | awk '{print $3*100}')"
+		#brightness=$(echo "($brightness+0.5)/1" | bc)
+		brightness=$(echo "$(xbacklight)/1" | bc)
+		barFull=$(seq -s "$FULL" $((brightness / 10)) | sed 's/[0-9]//g')
+		barEmpty=$(seq -s "$EMPTY" $((11 - brightness / 10)) | sed 's/[0-9]//g')
+		printf "%b" "$barFull$barEmpty $brightness%%"
+		;;
+	esac
+}
+
+battery() {
+	case "$1" in
+	-s | --simple)
+		if [ "$(acpi | wc -l)" = "1" ]; then
+			if [ "$(acpi | awk '{print $3}')" = "Charging," ]; then
+				echo "$(acpi | awk '{print $4}' | cut -d',' -f1)%"
+			elif [ "$(acpi | awk '{print $3}')" = "Full," ]; then
+				echo "Full"
+			else
+				echo "$(acpi | awk '{print $4}' | cut -d',' -f1)%"
+			fi
+		else
+			if [ "$(acpi | awk 'NR=2 {print $3}')" = "Charging," ]; then
+				echo "$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)"
+			elif [ "$(acpi | awk 'NR=2 {print $3}')" = "Full," ]; then
+				echo "Full"
+			else
+				echo "$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)%"
+			fi
+		fi
+		;;
+	-f | --full)
+		if [ "$(acpi | wc -l)" = "1" ]; then
+			state=$(acpi | awk '{print $3}')
+			if [ "$state" = "Charging," ]; then
+				percent=$(acpi | awk '{print $4}' | cut -d',' -f1)
+				time=$(acpi | awk NR=1 | awk '{print $5, $6, $7}')
+				echo "$percent%, $time"
+			elif [ "$state" = "Full," ]; then
+				echo "Full"
+			else
+				percent=$(acpi | awk '{print $4}' | cut -d',' -f1)
+				time=$(acpi | awk NR=1 | awk '{print $5, $6}')
+				echo "$percent%, $time"
+			fi
+		else
+			state=$(acpi | awk 'NR=2 {print $3}')
+			if [ "$state" = "Charging," ]; then
+				percent=$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)
+				time=$(acpi | awk 'NR=2 {print $5, $6, $7}')
+				echo "$percent%, $time"
+			elif [ "$state" = "Full," ]; then
+				echo " $sep Full"
+			else
+				percent=$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)
+				time=$(acpi | awk 'NR=2 {print $5, $6}')
+				echo "$percent%, $time"
+			fi
+		fi
+		;;
+	esac
+}
+
+internet() {
+	case "$1" in
+	-f | --full)
+		# simple=false
+		;;
+	-p | --pc | *)
+		# simple=true
+    is-connected
+		;;
+	esac
+
+	# connection_type=$(nmcli d | grep connected | head -1 | awk '{print $1}')
+
+	# if [ "$connection_type" = "enp4s0" ]; then
+	# 	echo "$(nmcli d | grep connected | awk '{print $4}')"
+	# elif [ "$connection_type" = "wlp5s0" ]; then
+	# 	signal=$(nmcli -g IN-USE,SIGNAL d wifi list | grep "*" | cut -d':' -f2)
+	# 	ssid=$(nmcli -g IN-USE,SSID d wifi list | grep "*" | cut -d':' -f2)
+	# 	if $simple; then
+	# 		echo "$signal%%"
+	# 	else
+	# 		echo "$signal%%, $ssid"
+	# 	fi
+	# else
+	# 	echo "<span foreground='#af8787'>Net</span> $sep: Disconnected"
+	# fi
+}
+
+vpn() {
+	connections=$(nmcli d | grep "vpn0\|acer")
+	if [ -n "$connections" ]; then
+		for c in $connections; do
+			name=$(echo "$c" | awk '{print $1}')
+			status=$(echo "$c" | awk '{print $3}')
+			if [ $(echo "$connections" | wc -l) -gt 1 ]; then
+				state="$state, $name $status"
+			else
+				state="$name $status"
+			fi
+		done
+		echo "$state"
+	else
+		echo "No connections"
+	fi
+}
+case "$1" in
+--bspwm)
+	wm=$(bspwm --full)
+	notify-send "BSPWM" "$wm"
+	;;
+--calendar)
+	cal=$(calendar --date)
+	notify-send "Date" "$cal"
+	;;
+--audio)
+	sound=$(soundinfo --full)
+	notify-send "Audio" "$sound"
+	;;
+--brightness)
+	light=$(brightness --full)
+	notify-send "Backlight" "$light"
+	;;
+--battery)
+	power=$(battery --full)
+	notify-send "Battery" "$power"
+	;;
+--internet)
+  [ "$hostname" = "atlantic" ] && arg="pc" || arg="laptop"
+	interweb=$(internet --$arg)
+	notify-send "Internet" "Status: $interweb"
+	;;
+--vpn)
+	vvpn=$(vpn)
+	notify-send "VPN" "$vvpn"
+	;;
+--full)
+	wm=$(bspwm --full)
+	cal=$(calendar --date)
+	sound=$(soundinfo --full)
+	light=$(brightness --full)
+	power=$(battery --full)
+	interweb=$(internet --full)
+	#bt=$(bluetooth)
+	fulll=$(env printf "$wm\n$cal\n$sound\n$light\n$power\n$interweb\n")
+	notify-send -t 15000 "Information Overload:" "$fulll"
+	;;
+--pc)
+	wm=$(env printf "%-60s %s\n" "you_are_on_workspace<span_foreground='#878787'>_" "_</span><span_foreground='#57875f'>$(bspwm --simple)</span>")
+	cal=$(env printf "%-60s %s\n" "it_is_currently<span_foreground='#878787'>_" "_</span><span_foreground='#af5f5f'>$(calendar --time)</span>")
+	sound=$(env printf "%-60s %s\n" "volume_is_<span_foreground='#878787'>_" "_</span><span_foreground='#87afaf'>$(soundinfo --simple)</span>")
+	interwebs=$(env printf "%-60s %s\n" "internet_is<span_foreground='#878787'>_" "_</span><span_foreground='#af8787'>$(internet --simple)</span>")
+	fanc=$(env printf "$wm\n$cal\n$sound\n$interwebs\n" | tr " " "." | tr "_" " ")
+  greeting=$(greeting)
+	notify-send -t 10000 "$greeting, $USER" "$fanc"
+	;;
+--simple | *)
+	wm=$(bspwm --simple)
+	cal=$(calendar --time)
+	soundinfo=$(sound --simple)
+	light=$(brightness --simple)
+	power=$(battery --simple)
+	interweb=$(internet --simple)
+	simple=$(env printf "$wm\n$cal\n$soundinfo\n$light\n$power\n$interweb")
+	notify-send -t 10000 "Information Underload:" "$simple"
+	;;
+esac
