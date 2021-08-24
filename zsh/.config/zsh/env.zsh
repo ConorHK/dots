@@ -42,5 +42,5 @@ if [ "$hostname" = "atlantic" ]; then
   export HEADPHONES="alsa_output.usb-Plantronics_Plantronics_HD1-00.analog-stereo"
   export SPEAKERS="alsa_output.pci-0000_01_00.1.hdmi-stereo"
 else
-  export SPEAKERS="TODO"
+  export SPEAKERS="alsa_output.pci-0000_00_1f.3.analog-stereo"
 fi

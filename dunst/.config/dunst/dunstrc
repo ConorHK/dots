@@ -18,7 +18,7 @@
 
     #geometry = "262x5-829-46"
     #geometry = "262x3-14+46"
-    geometry = "400x20-48-48"    
+    geometry = "400x20+10+33"    
     indicate_hidden = yes
     shrink = false
     transparency = 0

@@ -50,12 +50,6 @@ _chwb2 normal $(bspwindows inactive)
 _chwb2 focused $(bspwindows)
 
 bspc subscribe node_state node_geometry node_focus | while read msg; do
-  if batt > /dev/null 2>&1 ; then
-    bspc config focused_border_color "#3f3639"
-  else
-    bspc config focused_border_color "#FF0000"
-    continue
-  fi
     _chwb2 normal $(bspwindows inactive)
     _chwb2 focused $(bspwindows)
 done

@@ -12,11 +12,13 @@ super + @space
 
 # status
 super + w
-  if [[ "$(hostname)" = "atlantic" ]]; then status --pc; else status --laptop; fi
-super + e
+  status
+super + a
   status --bspwm
-super + r
+super + s
   status --audio
+super + d
+  status --battery
 
 # make sxhkd reload its configuration files:
 super + Escape

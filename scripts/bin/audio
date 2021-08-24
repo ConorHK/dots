@@ -46,6 +46,9 @@ def _get_active_sink(
     :param sink_list: List of sink objects
     :returns: Active sink
     """
+    if not input_list:
+        print("No active inputs")
+        sys.exit()
     sink_inputs = [input.sink for input in input_list]
     active_sink = next((sink for sink in sink_list if sink.index == mode(sink_inputs)), None)
     if active_sink:
