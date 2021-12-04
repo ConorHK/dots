@@ -106,7 +106,7 @@ battery() {
       percent=$(acpi | awk '{print $4}' | cut -d',' -f1)
 			if [ "$state" = "Charging," ]; then
 				time=$(acpi | awk NR=1 | awk '{print $5, $6, $7}')
-				echo "$percent%, $time"
+				echo "$percent, $time"
 			elif [ "$state" = "Full," ]; then
 				echo "Full"
 			else

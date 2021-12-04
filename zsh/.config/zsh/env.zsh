@@ -4,12 +4,12 @@
 hostname=$(hostname)
 
 # Adds ~/bin to $PATH
-export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$HOME/.local/bin:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 
 # Default programs:
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
-export TERMINAL="alacritty"
+export TERMINAL="wezterm"
 export TERM="alacritty"
 export BROWSER="firefox"
 export READER="zathura"
@@ -37,6 +37,7 @@ export SSB_HOME="${XDG_DATA_HOME}/zoom" # zoom
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}/java"
 
 export SESSIONS="$XDG_CACHE_HOME/nvim/sessions"
+export TEXMFHOME="$HOME/repositories/latextemplates"
 
 if [ "$hostname" = "atlantic" ]; then
   export HEADPHONES="alsa_output.usb-Plantronics_Plantronics_HD1-00.analog-stereo"

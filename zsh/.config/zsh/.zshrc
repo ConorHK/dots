@@ -24,11 +24,10 @@ setopt auto_pushd
 # Source plugins
 ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh"
 source $ZDOTDIR/.zsh_plugins.sh
-source $ZDOTDIR/prompt_config.zsh
 
 HISTFILE=$XDG_CACHE_HOME/zsh/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 setopt autocd extendedglob nomatch
 unsetopt beep
 
@@ -52,3 +51,5 @@ bindkey '^[[B' history-beginning-search-forward
 autoload -Uz compinit
 compinit
 
+# Prompt
+source $ZDOTDIR/prompt.zsh
