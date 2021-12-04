@@ -10,7 +10,8 @@ else
   if [ -n "$t" ];then \
     echo $t $w;\
   fi;\
-  done|sort -n|head -n1|cut -d" " -f 5);\
+  done|sort -n -r |head -n1|cut -d" " -f 5);\
+  echo $i
   if [ -n "$i" ];then \
     xprop -id $i -remove _SCRATCH;\
     bspc rule -a \* --one-shot;\

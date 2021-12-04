@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "Setting workspaces"
+bspc monitor DP-1 -d 1 2 3 4 5
+bspc monitor eDP-1 -d 6 7 8 9 0
+
+echo "Setting monitor layout"
+xrandr --output DP-1 --left-of eDP-1
+
+echo "Setting up keyboard"
+setxkbmap -option "" -v && setxkbmap us
+
+echo "Resetting wallpaper"
+noisewall "#432f2f"
