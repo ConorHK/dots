@@ -7,7 +7,7 @@ noisewall "#432f2f"
 sxhkd &
 xsetroot -cursor_name left_ptr &
 [ "$hostname" = "atlantic" ] && setxkbmap us  || setxkbmap gb && setxkbmap -option "caps:swapescape"
-[ "$hostname" = "pacific" ] && gebaard -b
+[ "$hostname" = "pacific" ] && gebaard -b && pulseaudio-ctl mute-input && pactl load-module module-bluetooth-discover
 xset m 1/1 3 # mouse speed
 unclutter &
 exec bspwm
