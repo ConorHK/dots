@@ -1,14 +1,17 @@
 #!/bin/sh
 
 echo "Setting workspaces"
-bspc monitor DP-1 -d 1 2 3 4 5
-bspc monitor eDP-1 -d 6 7 8 9 0
+bspc monitor DP1 -d 1 2 3 4 5
+bspc monitor eDP1 -d 6 7 8 9 0
 
 echo "Setting monitor layout"
-xrandr --output DP-1 --left-of eDP-1
+xrandr --output DP1 --left-of eDP1 --mode 2560x1440
 
 echo "Setting up keyboard"
 setxkbmap -option "" -v && setxkbmap us
 
 echo "Resetting wallpaper"
 noisewall "#432f2f"
+
+echo "Connecting to mouse"
+echo -e "power on\nconnect CF:40:1B:98:63:01\n" | bluetoothctl
