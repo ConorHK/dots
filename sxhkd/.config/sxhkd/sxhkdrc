@@ -102,6 +102,9 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
+super + {Prior,Next,Home}
+  bspc desktop -f {prev,next,1}
+
 # focus next monitor
 super + n
   bspc monitor --focus {prev,next}
@@ -168,8 +171,6 @@ XF86Search
 F12
   audio swap-output
 
-Next
-  audio swap-output
 
 #----- Application Specific -----#
 # firefox
@@ -178,18 +179,11 @@ super + shift + f
 
 Print
   scrot -s -e 'mv $f /home/conor/media/screenshots'
-Prior
-  scrot -s -e 'mv $f /home/conor/media/screenshots'
 
 
 #----- Scratchpad -----#
-# send to scratch
-F7
-  scratch-hide
 End
   scratch-hide
-# return from scratch
-shift + F7
-  scratch-show
+
 shift + End
   scratch-show
