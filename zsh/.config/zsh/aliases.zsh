@@ -1,17 +1,17 @@
-if ! type "exa" > /dev/null; then
+if  type "exa" > /dev/null; then
   alias ls="exa --icons"
   alias l="exa --icons -la"
 fi
-if ! type "zathura" > /dev/null; then
+if  type "zathura" > /dev/null; then
   alias pdf="zathura"
 fi
-if ! type "pacman" > /dev/null; then
+if  type "pacman" > /dev/null; then
   alias p="sudo pacman"
 fi
-if ! type "ranger" > /dev/null; then
+if  type "ranger" > /dev/null; then
   alias ra="ranger"
 fi
-if ! type "nvim" > /dev/null; then
+if  type "nvim" > /dev/null; then
   alias vim="nvim"
 fi
 
