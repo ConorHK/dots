@@ -35,6 +35,7 @@ export GOPATH="${XDG_DATA_HOME}/go"
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 export SSB_HOME="${XDG_DATA_HOME}/zoom" # zoom
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}/java"
+export IPYTHONDIR="${XDG_CONFIG_HOME}/ipython"
 
 export SESSIONS="$XDG_CACHE_HOME/nvim/sessions"
 export TEXMFHOME="$HOME/repositories/latextemplates"
