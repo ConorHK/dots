@@ -53,3 +53,6 @@ compinit
 
 # Prompt
 source $ZDOTDIR/prompt.zsh
+
+# Session SSH passphrase
+[ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)" &> /dev/null
