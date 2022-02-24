@@ -11,7 +11,7 @@ echo "Setting up keyboard"
 setxkbmap -option "" -v && setxkbmap us
 
 echo "Resetting wallpaper"
-noisewall "#432f2f"
+hashwall -s 12
 
 echo "Connecting to mouse"
-echo -e "power on\nconnect CF:40:1B:98:63:01\n" | bluetoothctl
+echo "power on\nconnect CF:40:1B:98:63:01\n" | bluetoothctl

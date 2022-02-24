@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Connecting to speaker"
+echo -e "power on\nconnect C0:28:8D:85:86:D7\n" | bluetoothctl
