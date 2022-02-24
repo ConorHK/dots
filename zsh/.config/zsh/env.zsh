@@ -46,3 +46,11 @@ if [ "$hostname" = "atlantic" ]; then
 else
   export SPEAKERS="alsa_output.pci-0000_00_1f.3.analog-stereo"
 fi
+
+# Java WM awt settings
+export AWT_TOOLKIT=MToolkit
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+if [[ -f "$ZDOTDIR/secrets.zsh" ]]; then
+  source $ZDOTDIR/secrets.zsh
+fi

@@ -21,10 +21,6 @@ preexec () {
 # Make cd work like pushd
 setopt auto_pushd
 
-# Source plugins
-ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh"
-source $ZDOTDIR/.zsh_plugins.sh
-
 HISTFILE=$XDG_CACHE_HOME/zsh/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -56,3 +52,6 @@ source $ZDOTDIR/prompt.zsh
 
 # Session SSH passphrase
 [ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)" &> /dev/null
+
+# Source plugins
+source $ZDOTDIR/plugins.zsh
