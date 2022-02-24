@@ -2,6 +2,8 @@
 # Run by zsh on startup
 
 hostname=$(hostname)
+export LAPTOP="saturn"
+export PC="atlantic"
 
 # Adds ~/bin to $PATH
 export PATH="$PATH:$HOME/.local/bin:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
@@ -40,7 +42,7 @@ export IPYTHONDIR="${XDG_CONFIG_HOME}/ipython"
 export SESSIONS="$XDG_CACHE_HOME/nvim/sessions"
 export TEXMFHOME="$HOME/repositories/latextemplates"
 
-if [ "$hostname" = "atlantic" ]; then
+if [ "$hostname" = "$PC" ]; then
   export HEADPHONES="alsa_output.usb-Plantronics_Plantronics_HD1-00.analog-stereo"
   export SPEAKERS="alsa_output.pci-0000_01_00.1.hdmi-stereo"
 else
@@ -54,3 +56,5 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 if [[ -f "$ZDOTDIR/secrets.zsh" ]]; then
   source $ZDOTDIR/secrets.zsh
 fi
+
+export SD_ROOT=$HOME/scripts

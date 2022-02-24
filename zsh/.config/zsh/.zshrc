@@ -5,8 +5,8 @@ source $HOME/.config/zsh/env.zsh
 source $ZDOTDIR/aliases.zsh
 
 # Source functions
- fpath=($ZDOTDIR/functions $fpath);
- autoload -U $fpath[1]/*(.:t)
+fpath=($ZDOTDIR/functions $fpath);
+autoload -U $fpath[1]/*(.:t)
 
 # set title on terminal spawn
 precmd () {
@@ -40,12 +40,15 @@ bindkey '^[[F' end-of-line
 bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 
-# Load Z
-. $HOME/bin/z.sh
-
 # Load compinit
 autoload -Uz compinit
 compinit
+setopt menu_complete
+setopt auto_menu
+setopt complete_in_word
+setopt always_to_end
+zstyle ':completion:*' menu select
+zstyle ':completion:*' accept-exact-dirs true
 
 # Prompt
 source $ZDOTDIR/prompt.zsh

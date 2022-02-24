@@ -14,6 +14,9 @@ fi
 if  type "nvim" > /dev/null; then
   alias vim="nvim"
 fi
+if type "dragon-drag-and-drop" > /dev/null; then
+  alias dragon="dragon-drag-and-drop"
+fi
 
 alias gt="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias gs="git status"

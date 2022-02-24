@@ -1,7 +1,0 @@
-#!/bin/sh
-case "$(curl -s --max-time 1 -I https://archlinux.org | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
-  [23]) echo "connected";;
-  5) echo "blocked";;
-  *) echo "disconnected";;
-esac
-
