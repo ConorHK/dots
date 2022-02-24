@@ -1,12 +1,9 @@
 #!/bin/sh
 # Run by zsh on startup
 
-hostname=$(hostname)
+export HOSTNAME=$(hostname)
 export LAPTOP="saturn"
 export PC="atlantic"
-
-# Adds ~/bin to $PATH
-export PATH="$PATH:$HOME/.local/bin:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 
 # Default programs:
 export EDITOR="nvim"
@@ -42,7 +39,7 @@ export IPYTHONDIR="${XDG_CONFIG_HOME}/ipython"
 export SESSIONS="$XDG_CACHE_HOME/nvim/sessions"
 export TEXMFHOME="$HOME/repositories/latextemplates"
 
-if [ "$hostname" = "$PC" ]; then
+if [ "$HOSTNAME" = "$PC" ]; then
   export HEADPHONES="alsa_output.usb-Plantronics_Plantronics_HD1-00.analog-stereo"
   export SPEAKERS="alsa_output.pci-0000_01_00.1.hdmi-stereo"
 else
