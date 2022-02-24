@@ -3,8 +3,8 @@
 #
 
 # terminal emulator
-super + Return
-	$TERMINAL 
+super + {_,shift +} Return
+  {$TERMINAL, bspc rule -a \* -o state=floating && $TERMINAL}
 
 # program launcher
 super + @space
@@ -75,10 +75,6 @@ super + {_,shift + }{h,j,k,l}
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
-
-# focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c
@@ -178,7 +174,10 @@ super + shift + f
 	$BROWSER
 
 Print
-  scrot -s -e 'mv $f /home/conor/media/screenshots'
+  flameshot gui
+
+super + p
+  bwmenu
 
 
 #----- Scratchpad -----#
