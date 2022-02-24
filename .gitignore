@@ -3,3 +3,4 @@ zsh/.config/zsh/.zcompdump*
 zsh/.config/zsh/.zhistory
 scripts/bin/pcc-cluster
 zsh/.config/zsh/package-lock.json
+zsh/.config/zsh/secrets.zsh
