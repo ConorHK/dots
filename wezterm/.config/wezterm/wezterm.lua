@@ -1,6 +1,6 @@
 local wezterm = require 'wezterm';
 return {
-  font = wezterm.font("Gohu GohuFont"),
+  font = wezterm.font("creeper"),
   font_size = 10,
   color_scheme = "alduin",
   enable_tab_bar = false,
