@@ -182,7 +182,7 @@ super + p
 
 #----- Scratchpad -----#
 End
-  sd-scratch-hide
+  sd-hide
 
 shift + End
-  sd-scratch-show
+  sd-show

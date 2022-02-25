@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 eval "$(dbus-launch --auto-syntax)" # for spotify media keys
 sd-wallpaper
@@ -6,7 +6,7 @@ sxhkd &
 xsetroot -cursor_name left_ptr &
 [ "$HOSTNAME" = "$PC" ] && setxkbmap us
 [ "$HOSTNAME" = "$PC" ] && xrandr --output DP-0 --left-of DP-4
-[ "$HOSTNAME" = "$LAPTOP" ] && gebaard -b && pulseaudio-ctl mute-input && pactl load-module module-bluetooth-discover
+[ "$HOSTNAME" = "$LAPTOP" ] &&  pactl load-module module-bluetooth-discover
 xset m 1/1 3 # mouse speed
 unclutter &
 redshift -l 53.33306:-6.24889 &

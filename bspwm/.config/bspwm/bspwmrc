@@ -23,6 +23,6 @@ bspc config click_to_focus none
 bspc config focus_follows_pointer true
 bspc config pointer_follows_focus true
 
-bspc monitor -d 1 2 3 4 5 6 7 8 9
 
+[ "$HOSTNAME" = "$LAPTOP" ] && [ $(xrandr -q | grep ' connected' | wc -l) -ge 2 ] && bspc monitor DP1 -d 1 2 3 4 5 && bspc monitor eDP1 -d 6 7 8 9 0 || bspc monitor -d 1 2 3 4 5 6 7 8 9
 sd-borders &
