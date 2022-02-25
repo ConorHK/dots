@@ -58,3 +58,6 @@ source $ZDOTDIR/prompt.zsh
 
 # Source plugins
 source $ZDOTDIR/plugins.zsh
+
+# Source sd
+source sd
