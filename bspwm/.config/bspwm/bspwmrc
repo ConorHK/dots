@@ -7,13 +7,13 @@ bspc config left_padding 8
 bspc config bottom_padding 0
 bspc config window_gap 16
 
-bspc config split_ratio          0.52
-bspc config borderless_monocle   false
-bspc config gapless_monocle      false
-bspc config single_monocle       true
+bspc config split_ratio 0.52
+bspc config borderless_monocle false
+bspc config gapless_monocle false
+bspc config single_monocle true
 
-bspc config focused_border_color  "#424242"
-bspc config normal_border_color   "#424242"
+bspc config focused_border_color "#424242"
+bspc config normal_border_color "#424242"
 
 bspc config pointer_modifier super
 bspc config pointer_action1 move
@@ -22,7 +22,6 @@ bspc config pointer_action3 resize_corner
 bspc config click_to_focus none
 bspc config focus_follows_pointer true
 bspc config pointer_follows_focus true
-
 
 [ "$HOSTNAME" = "$LAPTOP" ] && [ $(xrandr -q | grep ' connected' | wc -l) -ge 2 ] && bspc monitor DP1 -d 1 2 3 4 5 && bspc monitor eDP1 -d 6 7 8 9 0 || bspc monitor -d 1 2 3 4 5 6 7 8 9
 sd-borders &
