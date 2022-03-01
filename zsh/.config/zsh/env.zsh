@@ -1,5 +1,4 @@
 #!/bin/sh
-# Run by zsh on startup
 
 export HOSTNAME=$(hostname)
 export LAPTOP="saturn"
@@ -9,7 +8,7 @@ export PC="atlantic"
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export TERMINAL="wezterm"
-export TERM="alacritty"
+export TERM="xterm-256color"
 export BROWSER="firefox"
 export READER="zathura"
 
