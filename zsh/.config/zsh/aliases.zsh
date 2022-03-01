@@ -25,5 +25,7 @@ alias ga="git add"
 alias gaa="git add --all"
 alias gd="git diff"
 alias gp="git push"
-alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
+
+alias dr="dirs -v"
 alias source-zsh="source $XDG_CONFIG_HOME/zsh/.zshrc"
+[[ "$HOSTNAME" == "$LAPTOP" ]] && alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"

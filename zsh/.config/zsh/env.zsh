@@ -16,6 +16,9 @@ export READER="zathura"
 # Locations
 export ENV_FILE="$(pwd)/env.zsh"
 export ALIASES="$(pwd)/aliases.zsh"
+export HISTFILE=$XDG_CACHE_HOME/zsh/.histfile
+export HISTSIZE=10000
+export SAVEHIST=10000
 
 # $HOME Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
