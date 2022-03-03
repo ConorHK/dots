@@ -17,6 +17,9 @@ fi
 if type "dragon-drag-and-drop" > /dev/null; then
   alias dragon="dragon-drag-and-drop"
 fi
+if type "spotifyd" > /dev/null; then
+  alias spt="spotifyd && spt"
+fi
 
 alias gt="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias gs="git status"

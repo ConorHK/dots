@@ -31,7 +31,6 @@ setopt always_to_end
 
 setopt no_rm_star_silent 
 setopt extended_glob
-setopt glob_dots
 setopt no_beep
 
 # ignore case in directory/file auto-completion

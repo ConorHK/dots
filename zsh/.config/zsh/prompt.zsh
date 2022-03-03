@@ -1,108 +1,60 @@
-# PROMPT
-
-ICO_DIRTY="⚡"
-ICO_AHEAD="▲"
-ICO_BEHIND="▼"
-ICO_DIVERGED="⥮"
-COLOR_ROOT="%F{red}"
-COLOR_USER="%F{cyan}"
-COLOR_NORMAL="%F{white}"
-PROMPT_STYLE="tiny"
+# original by pyratebeard; modified by conorhk
+ico_ahead="▲"
+ico_behind="▼"
+ico_diverged="↕"
+color_root="%F{red}"
+color_user="%F{3}"
+color_normal="%F{white}"
+color_git="%F{13}"
 
 # allow functions in the prompt
 setopt PROMPT_SUBST
 autoload -Uz colors && colors
 
-# # autoload zsh functions
-# fpath=(~/.zsh/functions $fpath)
-# autoload -U ~/.zsh/functions/*(:t)
-
-# # enable auto-execution of functions
-# typeset -ga chpwd_functions
-
-# prepend functions
-# chpwd_functions+=('chpwd_auto_cd')
-# mpv_functions+=('mm')
-
 # colors for permissions
 if [[ "$EUID" -ne "0" ]]
-then  # if user is not root
-	USER_LEVEL="${COLOR_USER}"
-else # root!
-	USER_LEVEL="${COLOR_ROOT}"
+then
+	color_prompt="${color_user}"
+else
+	color_prompt="${color_root}"
 fi
 
-# git prompt
-GIT_PROMPT() {
-  test=$(git rev-parse --is-inside-work-tree 2> /dev/null)
-  if [ ! "$test" ]
-  then
-    case "$PROMPT_STYLE" in
-      ascii)
-        echo "$reset_color%F{cyan}▒░"
-      ;;
-      arrows)
-        echo "$reset_color%F{cyan}"
-      ;;
-    esac
+git_prompt() {
+  repo=$(git rev-parse --is-inside-work-tree 2> /dev/null)
+  if [[ ! "$repo" || "$repo" = false ]]; then
     return
   fi
-  ref=$(git name-rev --name-only HEAD | sed 's!remotes/!!' 2> /dev/null)
-  if [[ ${ref} == "tags"* ]] ; then
-	branch=$(git branch | grep -e "^*" | tr -d "*")
-	ref="${branch/ /} ${ref}"
+
+  bare_repo=$(git rev-parse --is-bare-repository 2> /dev/null)
+  if [ "$bare_repo" = true ]; then
+    return
   fi
-  dirty="" && [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && dirty=$ICO_DIRTY
+
+  ref="$(git name-rev --name-only HEAD | sed 's!remotes/!!' 2> /dev/null)"
+  if [[ "${ref}" == "tags"* ]] ; then
+    branch="$(git branch | grep "^*" | tr -d "*")"
+    ref="${branch/ /} ${ref}"
+  fi
+
+  if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
+    color_git="%F{red}"
+  fi
+
   stat=$(git status | sed -n 2p)
   case "$stat" in
     *ahead*)
-      stat=$ICO_AHEAD
+      stat="$ico_ahead"
     ;;
     *behind*)
-      stat=$ICO_BEHIND
+      stat="$ico_behind"
     ;;
     *diverged*)
-      stat=$ICO_DIVERGED
+      stat="$ico_diverged"
     ;;
     *)
       stat=""
     ;;
   esac
-  case "$PROMPT_STYLE" in
-    classic)
-      echo "${COLOR_NORMAL}─["${ref}${dirty}${stat}"]"
-    ;;
-    tiny)
-      echo "%F{5} [%F{13}"${ref} ${dirty}${stat}"%F{5}]"
-    ;;
-    *)
-      echo "${USER_LEVEL}─[${COLOR_NORMAL}"${ref}${dirty}${stat}"${USER_LEVEL}]"
-    ;;
-  esac
+  echo " on %B"${color_git}${ref} ${stat}"%b"
 }
-case "$PROMPT_STYLE" in
-# ascii
-ascii)
-PROMPT='%{$bg[cyan]%} %F{black}%~ $(GIT_PROMPT)$reset_color 
-%f'
-;;
-# dual line
-dual)
-PROMPT='${USER_LEVEL}┌[${COLOR_NORMAL}%~${USER_LEVEL}]$(GIT_PROMPT)
-${USER_LEVEL}└─ - %f'
-;;
-# mini
-mini)
-PROMPT='${USER_LEVEL}[${COLOR_NORMAL}%~${USER_LEVEL}]$(GIT_PROMPT)── - %f'
-;;
-# tiny
-tiny)
-#PROMPT='%F{3} %%${COLOR_NORMAL} '
-PROMPT='%F{15}%B%(5~|%-1|%3~|%4~)%b %F{3}──── ─${COLOR_NORMAL} '
-;;
-# classic
-*)
-PROMPT='%F{cyan}${USERNAME}@%F{white}[${HOSTNAME}]$(GIT_PROMPT)%F{white} : %~# '
-;;
-esac
-
+PROMPT='%F{15}%B%(5~|%-1|%3~|%4~)%b$(git_prompt) ${color_prompt}──── ─${color_normal} '
