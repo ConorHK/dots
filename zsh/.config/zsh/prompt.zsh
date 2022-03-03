@@ -1,7 +1,7 @@
 # original by pyratebeard; modified by conorhk
-ico_ahead="▲"
-ico_behind="▼"
-ico_diverged="↕"
+ico_ahead="▲ "
+ico_behind="▼ "
+ico_diverged="↕ "
 color_root="%F{red}"
 color_user="%F{3}"
 color_normal="%F{white}"
