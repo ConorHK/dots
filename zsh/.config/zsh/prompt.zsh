@@ -55,6 +55,6 @@ git_prompt() {
       stat=""
     ;;
   esac
-  echo " on %B"${color_git}${ref} ${stat}"%b"
+  echo "on %B"${color_git}${ref} ${stat}"%b"
 }
-PROMPT='%F{15}%B%(5~|%-1|%3~|%4~)%b$(git_prompt)${color_prompt}──── ─${color_normal} '
+PROMPT='%F{15}%B%(5~|%-1|%3~|%4~) %b$(git_prompt)${color_prompt}──── ─${color_normal} '
