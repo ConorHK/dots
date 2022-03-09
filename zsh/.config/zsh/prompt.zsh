@@ -57,4 +57,9 @@ git_prompt() {
   esac
   echo "on %B"${color_git}${ref} ${stat}"%b"
 }
-PROMPT='%F{15}%B%(5~|%-1|%3~|%4~) %b$(git_prompt)${color_prompt}──── ─${color_normal} '
+
+ssh_prompt() {
+  [ "$SSH_HOME" ] && echo "${color_prompt}[$HOSTNAME] "
+}
+
+PROMPT='%B$(ssh_prompt)%F{15}%(5~|%-1|%3~|%4~) %b$(git_prompt)${color_prompt}──── ─${color_normal} '
