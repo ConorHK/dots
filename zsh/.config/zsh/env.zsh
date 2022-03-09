@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 export HOSTNAME=$(hostname)
 export LAPTOP="saturn"
@@ -57,3 +57,4 @@ if [[ -f "$ZDOTDIR/secrets.zsh" ]]; then
 fi
 
 export SD_ROOT=$HOME/scripts
+export PATH="$PATH:$SD_ROOT/.scripts"

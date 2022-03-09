@@ -2,7 +2,6 @@ source $HOME/.config/zsh/env.zsh
 source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/prompt.zsh
-source sd
 fpath=($ZDOTDIR/functions $fpath);
 autoload -U $fpath[1]/*(.:t)
 
