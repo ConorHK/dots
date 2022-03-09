@@ -2,7 +2,7 @@
 
 export HOSTNAME=$(hostname)
 export LAPTOP="saturn"
-export PC="atlantic"
+export PC="jupiter"
 
 # Default programs:
 export EDITOR="nvim"
