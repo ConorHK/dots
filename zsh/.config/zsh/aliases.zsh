@@ -1,9 +1,9 @@
-if which "exa" > /dev/null; then
+if command -v "exa" > /dev/null; then
   alias ls="exa --icons"
   alias l="exa --icons -la"
 fi
 
-if which "git" > /dev/null; then
+if command -v "git" > /dev/null; then
   alias gs="git status"
   alias gc="git commit"
   alias ga="git add"
@@ -14,13 +14,13 @@ if which "git" > /dev/null; then
   alias gm="git merge"
 fi
 
-[ which "zathura" &> /dev/null ] && alias pdf="zathura"
-[ which "pacman" &> /dev/null ] && alias p="sudo pacman"
-[ which "ranger" &> /dev/null ] && alias ra="ranger"
-[ which "nvim" &> /dev/null ] && alias vim="nvim"
-[ which "dragon-drag-and-drop" &> /dev/null ] && alias dragon="dragon-drag-and-drop"
-[ which "spotifyd" &> /dev/null ] && alias spt="spotifyd && spt"
-[ which "mpv" &> /dev/null ] &&  [ "$HOSTNAME = "$LAPTOP ] && alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
+[ $(command -v "zathura") ] && alias pdf="zathura"
+[ $(command -v "pacman") ] && alias p="sudo pacman"
+[ $(command -v "ranger") ] && alias ra="ranger"
+[ $(command -v "nvim") ] && alias vim="nvim"
+[ $(command -v "dragon-drag-and-drop") ] && alias dragon="dragon-drag-and-drop"
+[ $(command -v "spotifyd") ] && alias spt="spotifyd && spt"
+[ $(command -v "mpv") ] &&  [ "$HOSTNAME = "$LAPTOP ] && alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
 
 alias dr="dirs -v"
 alias source-zsh="source $XDG_CONFIG_HOME/zsh/.zshrc"
