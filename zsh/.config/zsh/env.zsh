@@ -52,6 +52,9 @@ fi
 export AWT_TOOLKIT=MToolkit
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+export DOCKER_CONTENT_TRUST=1
+
 if [[ -f "$ZDOTDIR/secrets.zsh" ]]; then
   source $ZDOTDIR/secrets.zsh
 fi
