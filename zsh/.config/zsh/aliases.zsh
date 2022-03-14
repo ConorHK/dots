@@ -15,7 +15,7 @@ if command -v "git" > /dev/null; then
 fi
 
 [ $(command -v "zathura") ] && alias pdf="zathura"
-[ $(command -v "pacman") ] && alias p="sudo pacman"
+[ $(command -v "yay") ] && alias p="yay"
 [ $(command -v "ranger") ] && alias ra="ranger"
 [ $(command -v "nvim") ] && alias vim="nvim"
 [ $(command -v "dragon-drag-and-drop") ] && alias dragon="dragon-drag-and-drop"
