@@ -1,0 +1,27 @@
+[user]
+	email = dev@conorknowles.com
+	name = ConorHK
+	username = ConorHK
+	signingkey = dev@conorknowles.com
+[core]
+  hooksPath = "/home/conor/.config/git/global_hooks"
+[init]
+  defaultBranch = main
+[diff]
+  context = 4
+[color]
+  ui = true
+[fetch]
+  prune = true
+[commit]
+  template = "/home/conor/.config/git/commit_message"
+	gpgsign = true
+[merge]
+	tool = fugitive
+  ff = only
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+[pull]
+  ff = only
+[rebase]
+  autostash = true

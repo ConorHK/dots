@@ -1,0 +1,19 @@
+#!/bin/sh
+
+_may_commit() {
+	branch_name="$(git branch --show-current)"
+
+	if ! test "$branch_name" = "master" -o "$branch_name" = "main"; then
+		return 0
+	fi
+	if ! util-confirm "You are on $branch_name, do you want to continue?"; then
+		return 1
+	fi
+	return 0
+}
+
+if ! _may_commit "$@"; then
+	exit 1
+fi
+
+git local-hook pre-commit "$@"
