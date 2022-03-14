@@ -24,6 +24,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
+export npm_config_cache="${XDG_CACHE_HOME}/npm"
 export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 export LESSHISTFILE=-
 export GTK2_RC_FILES="$HOME/.config/gtk-2/gtkrc-2.0"
