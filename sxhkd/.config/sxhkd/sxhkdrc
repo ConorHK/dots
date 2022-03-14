@@ -12,13 +12,13 @@ super + @space
 
 # status
 super + w
-  sd-status
+  wm-status
 super + a
-  sd-status --bspwm
+  wm-status --bspwm
 super + s
-  sd-status --audio
+  wm-status --audio
 super + d
-  sd-status --battery
+  wm-status --battery
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -62,7 +62,7 @@ super + ctrl + {m,x,y,z}
 
 # Lock screen
 super + x
-  GLITCHICON=$HOME/media/misc/lock.png sd-lock
+  GLITCHICON=$HOME/media/misc/lock.png wm-lock
 
 #
 # focus/swap
@@ -147,10 +147,10 @@ super + {Left,Down,Up,Right}
 
 #----- Media Keys -----#
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
-  sd-audio --change_volume {5,-5}
+  audio --change_volume {5,-5}
 
 XF86AudioMute
-  sd-audio --toggle
+  audio --toggle
 
 {XF86MonBrightnessUp,XF86MonBrightnessDown}
   brightnessctl s 20%{+,-}
@@ -165,7 +165,7 @@ XF86Search
   rofi-search
 
 F12
-  sd-audio swap-output
+  audio swap-output
 
 
 #----- Application Specific -----#
@@ -182,7 +182,7 @@ super + p
 
 #----- Scratchpad -----#
 End
-  sd-hide
+  wm-hide
 
 shift + End
-  sd-show
+  wm-show
