@@ -19,7 +19,6 @@ fi
 [ $(command -v "ranger") ] && alias ra="ranger"
 [ $(command -v "nvim") ] && alias vim="nvim"
 [ $(command -v "dragon-drag-and-drop") ] && alias dragon="dragon-drag-and-drop"
-[ $(command -v "spotifyd") ] && alias spt="spotifyd && spt"
 [ $(command -v "mpv") ] &&  [ "$HOSTNAME = "$LAPTOP ] && alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
 
 alias rm="rm -i"
