@@ -5,9 +5,9 @@ window:
 
 font:
   normal:
-    family: GohuGohuFont
+    family: creeper
     style:  Regular
-  size: 6
+  size: 10
   offset:
     x: 0
     y: 0
@@ -45,7 +45,7 @@ colors:
     white:   '#dfdfaf'
 
 cursor:
-  style: Block
+  style: block
 
   unfocused_hollow: true
 

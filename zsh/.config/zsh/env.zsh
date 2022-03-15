@@ -7,7 +7,7 @@ export PC="jupiter"
 # Default programs:
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
-export TERMINAL="wezterm"
+export TERMINAL="alacritty"
 export TERM="xterm-256color"
 export BROWSER="firefox"
 export READER="zathura"
