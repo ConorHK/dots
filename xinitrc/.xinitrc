@@ -8,7 +8,6 @@ xsetroot -cursor_name left_ptr &
 [ "$HOSTNAME" = "$LAPTOP" ] &&  setxkbmap gb
 [ "$HOSTNAME" = "$PC" ] && xrandr --output DP-0 --left-of DP-4
 [ "$HOSTNAME" = "$LAPTOP" ] &&  pactl load-module module-bluetooth-discover && batsignal -b
-[ "$HOSTNAME" = "$LAPTOP" ] &&  setxkbmap gb
 setxkbmap -option "caps:swapescape"
 xset m 1/1 3 # mouse speed
 unclutter &
