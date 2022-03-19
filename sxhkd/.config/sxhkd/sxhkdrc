@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + {_,shift +} Return
-  {$TERMINAL, bspc rule -a \* -o state=floating && $TERMINAL}
+  {wm-terminal, bspc rule -a \* -o state=floating && wm-terminal}
 
 # program launcher
 super + @space
@@ -182,7 +182,7 @@ super + p
 
 #----- Scratchpad -----#
 End
-  wm-hide
+  wm-scratch-hide
 
 shift + End
-  wm-show
+  wm-scratch-show
