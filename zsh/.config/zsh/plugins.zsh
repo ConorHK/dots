@@ -35,7 +35,6 @@ function plugin-compile() {
 
 plugins=(
   romkatv/zsh-defer
-  agkozak/zsh-z
   jeffreytse/zsh-vi-mode
   joshskidmore/zsh-fzf-history-search
   zsh-users/zsh-history-substring-search

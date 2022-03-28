@@ -9,25 +9,25 @@ setopt auto_pushd
 setopt auto_cd
 setopt pushd_ignore_dups
 
-setopt append_history          
-setopt extended_history       
-setopt no_hist_beep          
+setopt append_history
+setopt extended_history
+setopt no_hist_beep
 setopt hist_expire_dups_first
-setopt hist_find_no_dups    
+setopt hist_find_no_dups
 setopt hist_ignore_all_dups
-setopt hist_ignore_dups   
-setopt hist_ignore_space  
-setopt hist_no_store     
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
-setopt hist_verify 
+setopt hist_verify
 setopt inc_append_history
 
 setopt auto_menu
 setopt complete_in_word
 setopt always_to_end
 
-setopt no_rm_star_silent 
+setopt no_rm_star_silent
 setopt extended_glob
 setopt no_beep
 
@@ -53,3 +53,5 @@ if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 else
 	compinit -C;
 fi;
+
+eval "$(zoxide init zsh)"
