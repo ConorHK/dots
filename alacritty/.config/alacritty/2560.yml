@@ -53,7 +53,8 @@ colors:
 
 cursor:
   style: block
-
   unfocused_hollow: true
 
-live_config_reload: true
+key_bindings:
+  - { key: Paste, action: Paste }
+  - { key: Copy, action: Copy }
