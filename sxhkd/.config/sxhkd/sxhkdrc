@@ -103,7 +103,7 @@ super + {Prior,Next,Home}
 
 # focus next monitor
 super + n
-  bspc monitor --focus {prev,next}
+  bspc monitor --focus next
 
 #
 # preselect
