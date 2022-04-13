@@ -30,12 +30,7 @@ git_prompt() {
     return
   fi
 
-  ref="$(git name-rev --name-only HEAD | sed 's!remotes/!!' 2> /dev/null)"
-  if [[ "${ref}" == "tags"* ]] ; then
-    branch="$(git branch | grep "^*" | tr -d "*")"
-    ref="${branch/ /} ${ref}"
-  fi
-
+  branch="$(git branch | grep "^*" | tr -d "*" | tr -d " ")"
   if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
     color_git="%F{red}"
   fi
@@ -55,7 +50,7 @@ git_prompt() {
       stat=""
     ;;
   esac
-  echo "on %B"${color_git}${ref} ${stat}"%b"
+  echo "on %B"${color_git}${branch} ${stat} "%b"
 }
 
 ssh_prompt() {
