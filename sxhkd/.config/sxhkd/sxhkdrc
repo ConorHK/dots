@@ -99,8 +99,7 @@ super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
 super + {Prior,Next,Home}
-  bspc desktop -f {prev,next,1}
-
+	wm-desktop --{prev,next,home}
 # focus next monitor
 super + n
   bspc monitor --focus next
