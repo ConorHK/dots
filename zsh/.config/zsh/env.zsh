@@ -28,7 +28,6 @@ export npm_config_cache="${XDG_CACHE_HOME}/npm"
 export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 export LESSHISTFILE=-
 export GTK2_RC_FILES="$HOME/.config/gtk-2/gtkrc-2.0"
-export WGETRC="$HOME/.config/wget/wgetrc"
 export ZDOTDIR="$HOME/.config/zsh"
 export _Z_DATA="$XDG_DATA_HOME/z"
 export PYLINTHOME="$XDG_CACHE_HOME/pylint"
