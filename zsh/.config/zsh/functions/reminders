@@ -1,0 +1,4 @@
+reminders(){
+	REMINDER="external_backup" REMINDER_TEXT="Please perform an external backup" PERIOD=604800 reminder # external backup reminder, week long PERIOD
+	find $REMINDER_MESSAGES/ -type f -exec cat {} \;
+}

@@ -54,4 +54,6 @@ else
 	compinit -C;
 fi;
 
+reminders
+
 eval "$(zoxide init zsh)"

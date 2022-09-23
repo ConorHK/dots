@@ -59,3 +59,6 @@ fi
 
 export SD_ROOT=$HOME/scripts
 export PATH="$PATH:$SD_ROOT/.scripts"
+
+export REMINDER_MESSAGES="$XDG_CACHE_HOME/reminders/messages"
+export REMINDER_INDICATORS="$XDG_CACHE_HOME/reminders/indicators"
