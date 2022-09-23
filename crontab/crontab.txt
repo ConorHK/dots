@@ -1,0 +1,3 @@
+01 * * * * pacman -Qe > /home/conor/docs/.packages.txt
+05 * * * * NTFY_TOPIC="UjTQ5Ng9pLc9J2Ncm2kkEFGDnyGidtw2H" ALIAS="backup" SUCCESS_PRIORITY=2 /home/conor/scripts/notify/command rclone copy /home/conor/docs encrypted:
+01 * * * * find ~/dl -mindepth 1 -mtime +30 -delete
