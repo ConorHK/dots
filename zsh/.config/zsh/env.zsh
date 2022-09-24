@@ -43,7 +43,7 @@ export TEXMFHOME="$HOME/repositories/latextemplates"
 
 if [ "$HOSTNAME" = "$PC" ]; then
   export HEADPHONES="alsa_output.usb-Plantronics_Plantronics_HD1-00.analog-stereo"
-  export SPEAKERS="alsa_output.pci-0000_01_00.1.hdmi-stereo"
+  export SPEAKERS="alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2"
 else
   export SPEAKERS="alsa_output.pci-0000_00_1f.3.analog-stereo"
 fi
