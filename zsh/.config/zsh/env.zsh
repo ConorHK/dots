@@ -8,7 +8,12 @@ export PC="jupiter"
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export TERMINAL="alacritty"
-export TERM="xterm-256color"
+if [ -n "$TMUX" ]; then
+  export TERM="tmux-256color"
+else
+  export TERM="xterm-256color"
+fi
+
 export BROWSER="firefox"
 export READER="zathura"
 
