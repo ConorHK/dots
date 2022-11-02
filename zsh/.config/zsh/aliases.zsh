@@ -1,6 +1,8 @@
 if command -v "exa" > /dev/null; then
   alias ls="exa --icons"
   alias l="exa --icons -la"
+else
+  alias l="ls -la"
 fi
 
 if command -v "git" > /dev/null; then

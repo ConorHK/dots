@@ -54,6 +54,10 @@ else
 	compinit -C;
 fi;
 
+if [[ -f "$ZDOTDIR/amazon.zsh" ]]; then
+  source $ZDOTDIR/amazon.zsh
+fi
+
 reminders
 
 eval "$(zoxide init zsh)"
