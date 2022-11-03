@@ -57,4 +57,11 @@ ssh_prompt() {
   [ "$SSH_CLIENT" ] && echo "${color_prompt}[$HOSTNAME] "
 }
 
-PROMPT='%B$(ssh_prompt)%F{15}%(5~|%-1|%3~|%4~) %b$(git_prompt)${color_prompt}──── ─${color_normal} '
+work() {
+if typeset -f version_set_info > /dev/null; then
+  echo -n "$(version_set_info)%b"
+fi
+}
+
+
+PROMPT='%B$(ssh_prompt)%F{15}%(5~|%-1|%3~|%4~) %b$(git_prompt)$(work) ${color_prompt}──── ─${color_normal} '
