@@ -1,5 +1,8 @@
 source $HOME/.config/zsh/env.zsh
 source $ZDOTDIR/aliases.zsh
+if [[ -f "$ZDOTDIR/amazon.zsh" ]]; then
+  source $ZDOTDIR/amazon.zsh
+fi
 source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/prompt.zsh
 fpath=($ZDOTDIR/functions $fpath);
@@ -53,10 +56,6 @@ if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 else
 	compinit -C;
 fi;
-
-if [[ -f "$ZDOTDIR/amazon.zsh" ]]; then
-  source $ZDOTDIR/amazon.zsh
-fi
 
 reminders
 
