@@ -1,0 +1,4 @@
+# bemol
+.env
+.vscode
+pyrightconfig.json
