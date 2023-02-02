@@ -26,3 +26,5 @@
   default = simple
 [rebase]
   autostash = true
+[url "ssh://git.amazon.com"]
+	insteadOf = https://git.amazon.com
