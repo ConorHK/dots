@@ -14,6 +14,7 @@ if command -v "git" > /dev/null; then
   alias gp="git push"
   alias gr="git rebase"
   alias gm="git merge"
+  alias goc="git open-remote"
 fi
 
 [ $(command -v "zathura") ] && alias pdf="zathura"
