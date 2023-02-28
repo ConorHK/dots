@@ -2,5 +2,6 @@ reminders(){
 	if [[ "$HOSTNAME" == "$PC" ]] || [[ "$HOSTNAME" == "$LAPTOP" ]]; then
 		REMINDER="external_backup" REMINDER_TEXT="Please perform an external backup" PERIOD=604800 reminder # external backup reminder, week long PERIOD
 	fi
+	mkdir -p $REMINDER_MESSAGES
 	find $REMINDER_MESSAGES/ -type f -exec cat {} \;
 }
