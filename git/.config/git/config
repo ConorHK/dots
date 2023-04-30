@@ -15,7 +15,6 @@
   prune = true
 [commit]
   template = "/home/conor/.config/git/commit_message"
-	gpgsign = true
 [merge]
 	tool = fugitive
   ff = only
