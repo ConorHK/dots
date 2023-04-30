@@ -21,6 +21,5 @@ fi
 [ $(command -v "dragon-drag-and-drop") ] && alias dragon="dragon-drag-and-drop"
 [ $(command -v "mpv") ] &&  [ "$HOSTNAME = "$LAPTOP ] && alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
 
-alias rm="rm -i"
 alias dr="dirs -v"
 alias source-zsh="source $XDG_CONFIG_HOME/zsh/.zshrc"
