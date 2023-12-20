@@ -1,12 +1,18 @@
 source $HOME/.config/zsh/env.zsh
 source $ZDOTDIR/aliases.zsh
-if [[ -f "$ZDOTDIR/amazon.zsh" ]]; then
-  source $ZDOTDIR/amazon.zsh
-fi
+source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/prompt.zsh
 fpath=($ZDOTDIR/functions $fpath);
 autoload -U $fpath[1]/*(.:t)
+fpath=($ZDOTDIR/completions $fpath);
+autoload -U $fpath[1]/*(.:t)
+
+if [[ -f "$ZDOTDIR/amazon.zsh" ]]; then
+  source $ZDOTDIR/amazon.zsh
+  fpath=($ZDOTDIR/completions/amazon $fpath);
+  autoload -U $fpath[1]/*(.:t)
+fi
 
 setopt auto_pushd
 setopt auto_cd
@@ -34,10 +40,6 @@ setopt no_rm_star_silent
 setopt extended_glob
 setopt no_beep
 
-# ignore case in directory/file auto-completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*' menu select
-
 # key bindings
 bindkey -v
 bindkey '^[[1;5C' forward-word
@@ -46,6 +48,10 @@ bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
 bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey '^E' edit-command-line
+
 
 # Session SSH passphrase
 [ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)" &> /dev/null
@@ -60,5 +66,8 @@ fi;
 reminders
 
 if command -v "zoxide" > /dev/null; then
+	eval "$(zoxide init zsh)"
+else
+	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 	eval "$(zoxide init zsh)"
 fi
