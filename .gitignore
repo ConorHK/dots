@@ -6,3 +6,5 @@ zsh/.config/zsh/package-lock.json
 zsh/.config/zsh/secrets.zsh
 zsh/.config/zsh/plugins
 zsh/.config/zsh/amazon.zsh
+**/*/tmux*.log
+tmux/.config/tmux/plugins
