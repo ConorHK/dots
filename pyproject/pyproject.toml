@@ -92,6 +92,9 @@ select = [
 ]
 ignore = [
     "S101",
+    "I001",
+    "D100",
+    "D400",
 ]
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
