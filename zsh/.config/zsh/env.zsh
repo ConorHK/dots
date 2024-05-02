@@ -63,7 +63,7 @@ if [[ -f "$ZDOTDIR/secrets.zsh" ]]; then
 fi
 
 export SD_ROOT=$HOME/scripts
-export PATH="$PATH:$SD_ROOT/.scripts:/home/knoconor/.local/share/go/bin"
+export PATH="$PATH:$SD_ROOT/.scripts:$HOME/.local/bin"
 
 export REMINDER_MESSAGES="$XDG_CACHE_HOME/reminders/messages"
 export REMINDER_INDICATORS="$XDG_CACHE_HOME/reminders/indicators"
