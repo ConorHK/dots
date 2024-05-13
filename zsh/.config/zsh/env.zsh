@@ -20,7 +20,11 @@ export READER="zathura"
 # Locations
 export ENV_FILE="$(pwd)/env.zsh"
 export ALIASES="$(pwd)/aliases.zsh"
-export HISTFILE=$XDG_CACHE_HOME/zsh/.histfile
+export HISTFILE="$XDG_CACHE_HOME/zsh/.histfile"
+if [[ ! -f "$HISTFILE" ]]; then
+    mkdir -p "$XDG_CACHE_HOME/zsh"
+    touch "$HISTFILE"
+fi
 export HISTSIZE=10000
 export SAVEHIST=10000
 
