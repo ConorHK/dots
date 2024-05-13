@@ -17,6 +17,11 @@ fi
 export BROWSER="firefox"
 export READER="zathura"
 
+# $HOME Clean-up:
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
 # Locations
 export ENV_FILE="$(pwd)/env.zsh"
 export ALIASES="$(pwd)/aliases.zsh"
@@ -27,11 +32,6 @@ if [[ ! -f "$HISTFILE" ]]; then
 fi
 export HISTSIZE=10000
 export SAVEHIST=10000
-
-# $HOME Clean-up:
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
 
 export npm_config_cache="${XDG_CACHE_HOME}/npm"
 export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
