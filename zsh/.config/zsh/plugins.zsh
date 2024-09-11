@@ -41,3 +41,4 @@ plugins=(
   zdharma-continuum/fast-syntax-highlighting 
 )
 plugin-load $plugins
+plugin-compile $plugins

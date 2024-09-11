@@ -71,3 +71,9 @@ else
 	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 	eval "$(zoxide init zsh)"
 fi
+if command -v "/home/knoconor/.local/bin/mise" > /dev/null; then
+	eval "$(/home/knoconor/.local/bin/mise activate zsh)"
+fi
+if command -v "thefuck" > /dev/null; then
+	 eval $(thefuck --alias)
+fi

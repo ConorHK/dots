@@ -15,6 +15,7 @@ if command -v "git" > /dev/null; then
   alias gr="git rebase"
   alias gm="git merge"
   alias goc="git open-remote"
+  alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 fi
 
 [ $(command -v "zathura") ] && alias pdf="zathura"
@@ -23,6 +24,8 @@ fi
 [ $(command -v "nvim") ] && alias vim="nvim"
 [ $(command -v "dragon-drag-and-drop") ] && alias dragon="dragon-drag-and-drop"
 [ $(command -v "mpv") ] &&  [ "$HOSTNAME = "$LAPTOP ] && alias selfie="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
+[ $(command -v "util-copy") ] && alias c="util-copy"
 
 alias dr="dirs -v"
 alias source-zsh="source $XDG_CONFIG_HOME/zsh/.zshrc"
+[ $(command -v "nix") ] && alias nix="noglob nix"
