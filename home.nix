@@ -83,6 +83,17 @@
     # EDITOR = "emacs";
   };
 
+  # programs.zsh = {
+  #   enable = true;
+  #   enableCompletion = true;
+  #   autosuggestion.enable = false;
+  #   syntaxHighlighting.enable = true;
+  #
+  #   shellAliases = {
+  #   };
+  #   history = {
+  #   };
+  }
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
