@@ -105,9 +105,13 @@
     historySubstringSearch = {
         enable = true;
         searchUpKey = [
+            "^[[A"
+            "^[OA"
+            "$terminfo[kcud1]"
+        ];
+        searchDownKey = [
             "^[[B"
             "^[OB"
-            "$terminfo[kcud1]"
         ];
     };
   };
