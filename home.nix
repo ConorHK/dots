@@ -7,7 +7,7 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "knoconor";
-  home.homeDirectory = "/home/knoconor";
+  home.homeDirectory = "/Users/knoconor";
 
 
   # This value determines the Home Manager release that your configuration is
@@ -22,10 +22,22 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.eza
     pkgs.git
     pkgs.neovim
-    pkgs.zsh
   ];
+
+  programs.script-directory = {
+    enable = true;
+    settings = {
+      SD_ROOT = "${config.home.homeDirectory}/scripts";
+    };
+  };
+  
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
 
   # environment.pathsToLink = [ "/share/zsh" ];
@@ -64,6 +76,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     SUDO_EDITOR = "nvim";
+    ZDOTDIR = "$HOME/.config/zsh";
   };
 
   # Let Home Manager install and manage itself.

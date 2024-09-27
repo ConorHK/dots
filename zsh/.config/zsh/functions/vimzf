@@ -1,3 +1,0 @@
-vimzf() {
-  $EDITOR $(fzf)
-}

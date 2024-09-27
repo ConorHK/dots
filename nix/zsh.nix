@@ -10,6 +10,8 @@
     autocd = true;
     dotDir = ".config/zsh";
     initExtra = ''
+        fpath+="${pkgs.script-directory}/share/zsh/site-functions"
+
         ico_ahead="▲ "
         ico_behind="▼ "
         ico_diverged="↕ "
@@ -68,19 +70,12 @@
           [ "$SSH_CLIENT" ] && echo "''${color_prompt}[$HOSTNAME] "
         }
         
-        work() {
-        if typeset -f version_set_info > /dev/null; then
-          echo -n "$(version_set_info)%b"
-        fi
-        }
-        
-        
-        PROMPT='%B$(ssh_prompt)%F{15}%(5~|%-1|%3~|%4~) %b$(git_prompt)$(work) ''${color_prompt}──── ─''${color_normal} '
+        PROMPT='%B$(ssh_prompt)%F{15}%(5~|%-1|%3~|%4~) %b$(git_prompt) ''${color_prompt}──── ─''${color_normal} '
     '';
 
 
     shellAliases = {
-        l = "ls -la";
+        l = "eza -la";
         gs = "git status";
         gc = "git commit";
         ga = "git add";
@@ -89,8 +84,9 @@
         gl = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
         nix = "noglob nix";
         source-zsh = "source $ZDOTDIR/.zshrc";
-	home-manage = "home-manager switch && source $ZDOTDIR/.zshrc";
+	home-manage = "home-manager switch --flake ~/.dotfiles && source $ZDOTDIR/.zshrc";
         vim = "nvim";
+        ls = "eza";
     };
 
     history = {
