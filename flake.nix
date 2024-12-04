@@ -26,10 +26,9 @@
         {
           home.packages = [ nvim.packages.${system}.default ];
         }
-        ./home.nix 
+          ./home.nix 
         ];
       };
     };
   };
-};
 }

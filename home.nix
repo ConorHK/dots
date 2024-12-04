@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -7,7 +7,7 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "knoconor";
-  home.homeDirectory = "/Users/knoconor";
+  home.homeDirectory = "/home/knoconor";
 
 
   # This value determines the Home Manager release that your configuration is
@@ -22,9 +22,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.zsh
     pkgs.eza
     pkgs.git
-    pkgs.neovim
     pkgs.ghc
   ];
 
