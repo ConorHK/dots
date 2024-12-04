@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -25,6 +25,7 @@
     pkgs.eza
     pkgs.git
     pkgs.neovim
+    pkgs.ghc
   ];
 
   programs.script-directory = {
