@@ -101,18 +101,6 @@
       share = true;
       path = "${config.xdg.dataHome}/zsh/history";
     };
-    historySubstringSearch = {
-      enable = true;
-      searchUpKey = [
-        "^[[A"
-          "^[OA"
-          "$terminfo[kcud1]"
-      ];
-      searchDownKey = [
-        "^[[B"
-          "^[OB"
-      ];
-    };
   };
 }
 
