@@ -69,7 +69,7 @@
           }
 
     ssh_prompt() {
-      [ "$SSH_CLIENT" ] && echo "''${color_prompt}[$HOSTNAME] "
+      [ "$SSH_CLIENT" ] && echo "''${color_prompt}[$(hostname -s)] "
     }
 
     PROMPT='%B$(ssh_prompt)%F{15}%(5~|%-1|%3~|%4~) %b$(git_prompt) ''${color_prompt}──── ─''${color_normal} '

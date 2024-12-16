@@ -19,7 +19,7 @@
     defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
 
     homeConfigurations = {
-      "knoconor" = home-manager.lib.homeManagerConfiguration {
+      "dev-dsk-knoconor-1a-152d0c32" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
         {
