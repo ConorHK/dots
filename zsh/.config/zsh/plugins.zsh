@@ -36,8 +36,6 @@ function plugin-compile() {
 plugins=(
   romkatv/zsh-defer
   jeffreytse/zsh-vi-mode
-  joshskidmore/zsh-fzf-history-search
-  zsh-users/zsh-history-substring-search
   zdharma-continuum/fast-syntax-highlighting 
 )
 plugin-load $plugins

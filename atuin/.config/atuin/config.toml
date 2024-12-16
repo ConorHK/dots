@@ -1,0 +1,29 @@
+dialect = "uk"
+update_check = "false"
+sync_address = ""
+filter_mode_shell_up_key_binding = "directory"
+keymap_mode = "vim-normal"
+
+[stats]
+common_subcommands = [
+  "apt",
+  "cargo",
+  "composer",
+  "dnf",
+  "docker",
+  "git",
+  "go",
+  "ip",
+  "kubectl",
+  "nix",
+  "nmcli",
+  "npm",
+  "pecl",
+  "pnpm",
+  "podman",
+  "port",
+  "systemctl",
+  "tmux",
+  "yarn",
+  "brazil",
+]
