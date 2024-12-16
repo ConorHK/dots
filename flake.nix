@@ -9,11 +9,10 @@
     nvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, nvim, ...}@inputs:
+  outputs = { nixpkgs, home-manager, nvim, ...}:
     let
     system = "x86_64-linux";
-  lib = nixpkgs.lib;
-  pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
     defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
